@@ -16,6 +16,7 @@ import { environment } from 'src/environments/environment';
 import{ AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireStorageModule,StorageBucket} from '@angular/fire/storage';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
@@ -29,7 +30,8 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
      AngularFireAuthModule,
      AngularFireStorageModule,
      FormsModule,
-     ReactiveFormsModule
+     ReactiveFormsModule,
+     IonicStorageModule.forRoot()
     ],
   providers: [
     StatusBar,

@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFirestore } from 'angularfire2/firestore';
+import{Storage} from '@ionic/storage';
+import{StafServiceService} from '../services/staf-service.service';
 
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
@@ -9,12 +11,22 @@ import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-sca
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
+
+
+  public name:any;
+  public user_email:any;
+
+
+
+
   barcodeScannerOptions: BarcodeScannerOptions;
   uid:any;
   constructor(
     public router:Router,
     private firestore: AngularFirestore,
+    private storage:Storage,
+    private firebaseService:StafServiceService,
     public barcodeScanner:BarcodeScanner
   ) {
     this.barcodeScannerOptions={
@@ -25,6 +37,29 @@ export class HomePage {
 
   }
   
+ngOnInit(){
+  this.firebaseService.userChanges();
+    
+   // this.setTheValue();
+    this.getTheValue();
+}
+
+getTheValue(){
+    
+  this.storage.get("users").then( (val) =>{
+      if(val){ 
+        this.name=val.name;
+        
+          this.user_email=val.email;
+          //this.photo_URL=val.photoURL;
+         console.log(this.name);
+           }
+  })
+
+ }
+
+
+
 
 
   scanCode(){
