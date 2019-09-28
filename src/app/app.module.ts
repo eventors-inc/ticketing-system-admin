@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { environment } from 'src/environments/environment';
 import{ AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireStorageModule,StorageBucket} from '@angular/fire/storage';
+import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,7 +33,7 @@ import { AngularFireStorageModule,StorageBucket} from '@angular/fire/storage';
     ],
   providers: [
     StatusBar,
-    SplashScreen,
+    SplashScreen,BarcodeScanner,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
