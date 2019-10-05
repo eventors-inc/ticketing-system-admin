@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>add_timetable</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="createtimetableForm" (submit)='createTimetable()' >
+    
+        <ion-item>
+            <ion-label>BUS NUMBER</ion-label>
+            <ion-input formControlName="busnum" type="text" placeholder="Enter Bus Number"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label>FROM</ion-label>
+          <ion-input formControlName="from" type="text" placeholder="Enter From">
+    
+          </ion-input>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label >TO</ion-label>
+          <ion-input formControlName="to" type="text" placeholder="Enter TO">
+    
+          </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label >DATE</ion-label>
+            <ion-datetime displayFormat="DD MM YY" formControlName="date" placeholder="Select Date"></ion-datetime>
+          </ion-item>
+    
+          <ion-item>
+              <ion-label>TIME</ion-label>
+              <ion-datetime displayFormat="h:mm a" formControlName="time" placeholder="Select Time"></ion-datetime>
+            </ion-item>
+        <ion-item>
+            <ion-label>Route Number </ion-label>
+          <ion-input formControlName="route_num" type="text" placeholder=" Enter Route Number">
+    
+          </ion-input>
+        </ion-item>
+        <br />
+        <br />
+        <ion-button type="submit" [disabled]="!createtimetableForm.valid" class="ion-float-right">
+          ADD TIMETABLE
+        </ion-button>
+    
+      </form>
+    
+
+</ion-content>

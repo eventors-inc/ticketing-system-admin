@@ -10,7 +10,25 @@ import { AdminPage } from './admin.page';
 const routes: Routes = [
   {
     path: '',
-    component: AdminPage
+    component: AdminPage,
+    children:[
+      { path: 'view-timetable', 
+      loadChildren: '../view-timetable/view-timetable.module#ViewTimetablePageModule'
+     },
+     { path: 'add-timetable', 
+     loadChildren: '../add-timetable/add-timetable.module#AddTimetablePageModule'  
+     },
+     { path: 'view-route',
+      loadChildren: '../view-route/view-route.module#ViewRoutePageModule'
+     },
+     { path: 'view-report', 
+     loadChildren: '../view-report/view-report.module#ViewReportPageModule'
+     },
+     {
+      path :'',
+      redirectTo:'/admin/view-timetable'
+    }
+    ]
   }
 ];
 

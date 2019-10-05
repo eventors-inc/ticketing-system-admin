@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>view_timetable</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div *ngIf="timeTableClient">
+  <ion-card *ngFor="let item of timeTable">
+    <ion-card-header>
+      <ion-card-subtitle>
+        Route Number: {{item.routenum}}
+      </ion-card-subtitle>
+      <ion-card-title>
+        {{item.from}} - {{item.to}}
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        Bus Number: {{item.busnumber}}
+      </ion-item>
+      
+<ion-button color="success" (click)="editTimeTable(item)">
+  <ion-icon slot="icon-only" name="create"></ion-icon>
+</ion-button>
+
+<ion-button color="danger" (click)="deleteTimetable(item)">
+  <ion-icon slot="icon-only" name="trash"></ion-icon>
+</ion-button>
+    </ion-card-content>
+
+    </ion-card>
+</div>
+</ion-content>

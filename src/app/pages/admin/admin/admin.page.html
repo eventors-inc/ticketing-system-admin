@@ -1,9 +1,39 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>admin</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
-</ion-content>
+<ion-split-pane>
+    <ion-menu contentId="content">
+      <ion-header>
+  
+      </ion-header>
+      <ion-content>
+        <div class="profile">
+          <div class="profile-img">
+              
+                  <img src="{{imgsrc}}">
+                
+            <ion-title class="list-color">{{user_name}}</ion-title>
+          </div>
+  
+  
+        </div>
+        <ion-list noi-line>
+          <ion-menu-toggle auto-hide="false" *ngFor="let p of pages">
+            <ion-item lines="none" [routerLink]="p.url" routerDirection="root" [class.active-item]="selectedPath===p.url"
+              class="list-color"> &nbsp;
+              <ion-icon [name]="p.icon" class="list-color" item-start></ion-icon>&nbsp;
+              {{p.title}}
+  
+            </ion-item>
+  
+          </ion-menu-toggle>
+  
+          <ion-button color="danger" (click)="logout()" padding>
+            <ion-icon name='log-out' slot="start" class="list-color" padding-right padding-left></ion-icon>
+            Sign out
+          </ion-button>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+  
+  
+    <ion-router-outlet id="content" main></ion-router-outlet>
+  
+  </ion-split-pane>

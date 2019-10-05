@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Edit TimeTable</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="createtimetableForm" (submit)='updateTimetable(createtimetableForm.value)' >
+    
+        <ion-item>
+            <ion-label>BUS NUMBER</ion-label>
+            <ion-input formControlName="busnumber"  [disabled]="!busnumbers" type="text" value={{busnums}} placeholder="Enter Bus Number"></ion-input>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label>FROM</ion-label>
+          <ion-input formControlName="from" type="text"  value={{from_t}} placeholder="Enter From">
+    
+          </ion-input>
+        </ion-item>
+    
+        <ion-item>
+            <ion-label >TO</ion-label>
+          <ion-input formControlName="to" type="text"  value={{to_t}} placeholder="Enter TO">
+    
+          </ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label >DATE</ion-label>
+            <ion-datetime displayFormat="DD MM YY" formControlName="date"  value={{date}} placeholder="Select Date"></ion-datetime>
+          </ion-item>
+    
+          <ion-item>
+              <ion-label>TIME</ion-label>
+              <ion-datetime displayFormat="h:mm a" formControlName="time" value={{time_t}} placeholder="Select Time"></ion-datetime>
+            </ion-item>
+        <ion-item>
+            <ion-label>Route Number </ion-label>
+          <ion-input formControlName="route_num" type="text" value={{route}} placeholder=" Enter Route Number">
+    
+          </ion-input>
+        </ion-item>
+        <br />
+        <br />
+        <ion-button type="submit" [disabled]="!createtimetableForm.valid" class="ion-float-right">
+          UPADTE
+        </ion-button>
+    
+      </form>
+
+</ion-content>

@@ -17,6 +17,7 @@ import{ AngularFireAuthModule} from '@angular/fire/auth';
 import { AngularFireStorageModule,StorageBucket} from '@angular/fire/storage';
 import { BarcodeScanner, BarcodeScannerOptions } from '@ionic-native/barcode-scanner/ngx';
 import {IonicStorageModule} from '@ionic/storage';
+import { EditTimeTableModalPageModule } from './pages/edit-time-table-modal/edit-time-table-modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,6 +32,7 @@ import {IonicStorageModule} from '@ionic/storage';
      AngularFireStorageModule,
      FormsModule,
      ReactiveFormsModule,
+     EditTimeTableModalPageModule,
      IonicStorageModule.forRoot()
     ],
   providers: [

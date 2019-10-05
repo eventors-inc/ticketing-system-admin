@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
 import { Observable, BehaviorSubject } from 'rxjs';
  import { Storage } from '@ionic/storage';
+ import timetable from '.././models/timetable';
+import { analytics } from 'firebase';
 
 @Injectable({
   providedIn: 'root'
@@ -48,10 +50,14 @@ export class StafServiceService {
             this.setUserStatus(this.currentUser);  //setUserStatus
              this.storage.set("users",this.userStatus);
 
-            this.router.navigate(['/home']); //On success login, navigate to this page
-
-            //this.successSignInToast(userRef.data().name); //welcome toast
-
+             if(userRef.data().role == "admin") {
+              this.ngZone.run(() => this.router.navigate(["/admin"]));
+              }else if(userRef.data().role=="co") {
+               this.ngZone.run(() => this.router.navigate(["/home"])); 
+              }else{
+               this.ngZone.run(() => this.router.navigate(["/c-login"])); 
+              }
+              
 
           })
         })
@@ -89,20 +95,102 @@ export class StafServiceService {
         //this is the error you where looking at the video that I wasn't able to fix
         //the function is running on refresh so its checking if the user is logged in or not
         //hence the redirect to the login
-        this.ngZone.run(() => this.router.navigate(["/login"]));
+        this.ngZone.run(() => this.router.navigate(["/c-login"]));
       }
     })
   }
 
 
+  // add time table 
+
+  add_timeTable(times:timetable){
+
+    this.afAuth.auth.onAuthStateChanged(currentUser => {
+      if(currentUser){
+        let time={
+          busnumber:times.busnumber,
+          from:times.from,
+          to:times.to,
+          date:times.date,
+          time:times.time,
+          routenum:times.routenum,
+          Add_by:currentUser.uid
+        }
+        this.firestore.collection('Timetable/').add(time);
+
+      }else{
+        this.ngZone.run(() => this.router.navigate(["/c-login"]));
+      }
+    })
+    
+  }
+      
+  view_timetable():Observable<any> {
+    return this.firestore.collection<any>( "Timetable" ).valueChanges ();
+  }
+  
+  deleteTimetable(busnumber : string) {
+    this.firestore.collection("Timetable").ref.where("busnumber", "==", busnumber).onSnapshot(snap => {
+      snap.forEach(userRef => {
+        this.firestore.collection("Timetable").doc(userRef.id).delete()
+          
+
+      });
+    })
+    console.log(this.userStatus);
+    //On success login, navigate to this page
+    // this.setUserStatus(this.currentUser);  //setUserStatus
+    // this.storage.set("users",this.userStatus);
+    // this.successSignInToast(this.currentUser.name); //welcome toast
+    this.ngZone.run(() => this.router.navigate(["/admin/view-timetable"]));
+    
+  }
+
+  updateTimetable(timeT:timetable){
+    let timeTB = {
+
+      // email: users.email,
+      busnumber: timeT.busnumber,
+      date:timeT.date,
+      time:timeT.time,
+      routenum:timeT.routenum,
+      from:timeT.from,
+      to:timeT.to
 
 
+    }
+
+    this.afAuth.auth.onAuthStateChanged(currentUser => {
+      if (currentUser) {
+
+        this.firestore.collection("Timetable").ref.where("busnumber", "==", timeTB.busnumber).onSnapshot(snap => {
+          snap.forEach(userRef => {
+            this.firestore.collection("Timetable").doc(userRef.id).update(timeTB)
+              .then((user) => {
+                
+
+              }).catch(err => {
+                console.log(err);
+              })
+
+          });
+        })
+        console.log(this.userStatus);
+        //On success login, navigate to this page
+        // this.setUserStatus(this.currentUser);  //setUserStatus
+        // this.storage.set("users",this.userStatus);
+        // this.successSignInToast(this.currentUser.name); //welcome toast
+        this.ngZone.run(() => this.router.navigate(["/admin/view-timetable"]));
+
+      } else {
+
+        //the function is running on refresh so its checking if the user is logged in or not
+        //hence the redirect to the login
+        this.ngZone.run(() => this.router.navigate(["/c-login"]));
+      }
+    })
 
 
-
-
-
-
-
+  }
 
 }
