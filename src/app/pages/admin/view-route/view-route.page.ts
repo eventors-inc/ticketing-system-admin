@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
+import { EditTimeTableModalPage } from '../../edit-time-table-modal/edit-time-table-modal.page';
+import {StafServiceService} from '../../../services/staf-service.service';
 
 @Component({
   selector: 'app-view-route',
@@ -7,7 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewRoutePage implements OnInit {
 
-  constructor() { }
+  userDetails:any;
+  userdetailsClient:boolean=false;
+  constructor(
+    public userService: StafServiceService,
+    public modalController:ModalController
+  ) {
+    this.userdetailsClient=true;
+    this.userService.view_userdetails().subscribe((data:any[])=>{
+      this.userDetails=data;
+    
+       
+  });
+
+   }
 
   ngOnInit() {
   }

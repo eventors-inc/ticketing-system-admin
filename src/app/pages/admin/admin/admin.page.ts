@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterEvent } from '@angular/router';
+import {StafServiceService} from '../../../services/staf-service.service';
+
 
 
 @Component({
@@ -21,9 +23,9 @@ export class AdminPage implements OnInit {
       icon: 'md-time'
     },
     {
-      title:'View Route',
+      title:'View Users',
       url: '/admin/view-route',
-      icon: 'md-bus'
+      icon: 'md-contact'
     },
     {
       title:'View Report',
@@ -36,7 +38,8 @@ export class AdminPage implements OnInit {
   ];
   selectedPath = "";
 
-  constructor(private router:Router) {
+  constructor(private router:Router,
+    public userService:StafServiceService) {
     this.router.events.subscribe((event: RouterEvent) => {
       this.selectedPath = event.url;
     });
@@ -45,4 +48,7 @@ export class AdminPage implements OnInit {
   ngOnInit() {
   }
 
+  logout(){
+    this.userService.logOut()
+  }
 }

@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>view_route</ion-title>
+    <ion-title>USERS DETAILS</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+    <div *ngIf="userdetailsClient">
+        <ion-card *ngFor="let item of userDetails">
+          <ion-card-header>
+            <ion-card-subtitle>
+              Email: {{item.email}}
+            </ion-card-subtitle>
+            <ion-avatar>
+                <img src={{item.photoURL}}>
+              </ion-avatar>
+            <ion-card-title>
+             Name:{{item.name}}
+            </ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              Phone Number : {{item.phone}}
+            </ion-item>
+            <ion-item>
+                NIC Number : {{item.nic}}
+              </ion-item>
+            </ion-card-content>
+            </ion-card>
+            </div>
 
 </ion-content>

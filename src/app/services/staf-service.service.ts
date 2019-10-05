@@ -124,11 +124,17 @@ export class StafServiceService {
     })
     
   }
-      
+      // time table view functions
   view_timetable():Observable<any> {
     return this.firestore.collection<any>( "Timetable" ).valueChanges ();
   }
+
+  //user view 
+  view_userdetails():Observable<any>{
+    return this.firestore.collection<any>("users").valueChanges();
+  }
   
+  //time table delete
   deleteTimetable(busnumber : string) {
     this.firestore.collection("Timetable").ref.where("busnumber", "==", busnumber).onSnapshot(snap => {
       snap.forEach(userRef => {
@@ -191,6 +197,19 @@ export class StafServiceService {
     })
 
 
+  }
+
+  async logOut() {
+    this.afAuth.auth.signOut()
+      .then(() => {
+        this.currentUser = null;
+        this.setUserStatus(null);
+        this.storage.clear();
+        this.ngZone.run(() => this.router.navigate(["/c-login"]));
+
+      }).catch((err) => {
+        console.log(err);
+      })
   }
 
 }
