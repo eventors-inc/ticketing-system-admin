@@ -30,6 +30,7 @@
     "angularfire2": "^5.2.1",
     "brower": "0.0.2",
     "cordova-android": "8.1.0",
+    "cordova-browser": "6.0.0",
     "core-js": "^2.5.4",
     "firebase": "^7.0.0",
     "ngx-qrcode2": "0.0.9",

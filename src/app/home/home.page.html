@@ -1,18 +1,26 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+     Conductor Home
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-<ion-button  (click)="scanCode()">
-  SCAN CODE
-</ion-button>
+  
 
-<ion-card>
-  <ion-card-title>{{uid}}</ion-card-title>
-</ion-card>
-
+  <ion-card class="ion-padding" *ngIf="showCard">
+    <ion-card-subtitle>Passenger Details</ion-card-subtitle>
+    <ion-avatar>
+      <img src="{{photoUrl}}" />
+    </ion-avatar>
+    <ion-card-title>{{name}}</ion-card-title>
+    <ion-item>
+      <ion-label>{{user_email}}</ion-label>
+    </ion-item>
+  </ion-card>
+  <ion-button (click)="scanCode()" expand="block" fill="outline">
+      <ion-icon slot="start" name="qr-scanner"></ion-icon>
+      Scan Code
+    </ion-button>
 </ion-content>
